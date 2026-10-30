@@ -1,1 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tatiana Yucailla | Ingeniería de Software</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
 
+    <style>
+        /* ===== Variables ===== */
+        :root {
+            --bg-dark: #0f172a;
+            --bg-light: #f8fafc;
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --secondary: #ec4899;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --card-bg: #ffffff;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 20px 40px rgba(99, 102, 241, 0.15);
+            --transition: all 0.3s ease;
+        }
+
+        /* ===== Reset ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--bg-light); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
+        a { text-decoration: none; color: inherit; }
+
+        /* ===== Navegación ===== */
+        header {
+            position: fixed; top: 0; width: 100%;
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05); z-index: 1000; transition: var(--transition);
+        }
+        nav { max-width: 1200px; margin: 0 auto; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8rem; font-weight: 800; color: var(--primary); letter-spacing: -1px; }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { font-weight: 600; color: var(--text-main); position: relative; transition: var(--transition); }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0%; height: 2px; background: var(--primary); transition: var(--transition); }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-links a:hover { color: var(--primary); }
+        .menu-btn { display: none; font-size: 1.5rem; cursor: pointer; color: var(--text-main); }
+
+        /* ===== Hero Section ===== */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 120px 20px 60px;
+            background: radial-gradient(circle at top right, #e0e7ff 0%, transparent 40%), radial-gradient(circle at bottom left, #fce7f3 0%, transparent 40%);
+            position: relative;
+        }
+        .hero-content { max-width: 800px; z-index: 2; }
+        .hero h1 { font-size: clamp(3rem, 6vw, 5rem); font-weight: 800; line-height: 1.1; margin-bottom: 15px; color: var(--bg-dark); }
+        .hero h1 span { color: var(--primary); }
+        .hero h2 { font-size: clamp(1.2rem, 2vw, 1.8rem); font-weight: 400; color: var(--text-muted); margin-bottom: 30px; height: 40px; }
+        .typing-text::after { content: '|'; animation: blink 1s infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+        .hero-btns { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+        .btn { padding: 14px 32px; border-radius: 50px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: var(--transition); display: inline-flex; align-items: center; gap: 10px; border: none; }
+        .btn-primary { background: var(--primary); color: white; box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3); }
+        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-3px); box-shadow: 0 15px 25px rgba(99, 102, 241, 0.4); }
+        .btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+        .btn-outline:hover { background: var(--primary); color: white; }
+
+        /* ===== Secciones Generales ===== */
+        section { padding: 100px 20px; max-width: 1200px; margin: 0 auto; }
+        .section-title { text-align: center; font-size: 2.5rem; font-weight: 800; margin-bottom: 60px; color: var(--bg-dark); }
+        .section-title span { color: var(--primary); }
+
+        /* ===== Habilidades ===== */
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 25px; max-width: 900px; margin: 0 auto; }
+        .skill-card { background: var(--card-bg); padding: 25px 15px; border-radius: 20px; text-align: center; box-shadow: var(--shadow); transition: var(--transition); border: 1px solid #f1f5f9; cursor: default; }
+        .skill-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-hover); border-color: var(--primary); }
+        .skill-card i { font-size: 3.5rem; margin-bottom: 15px; transition: var(--transition); }
+        .skill-card:hover i { transform: scale(1.1); }
+        .skill-card span { font-weight: 600; font-size: 0.95rem; color: var(--text-main); }
+
+        /* ===== Proyectos ===== */
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
+        .project-card { background: var(--card-bg); border-radius: 24px; padding: 40px; box-shadow: var(--shadow); transition: var(--transition); position: relative; overflow: hidden; display: flex; flex-direction: column; border: 1px solid #f1f5f9; }
+        .project-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: linear-gradient(90deg, var(--primary), var(--secondary)); }
+        .project-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-hover); }
+        .project-card h3 { font-size: 1.6rem; margin-bottom: 10px; color: var(--bg-dark); }
+        .project-card p { color: var(--text-muted); margin-bottom: 25px; flex-grow: 1; }
+        .project-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 25px; }
+        .project-tags span { background: #f1f5f9; color: var(--text-main); font-size: 0.8rem; padding: 5px 12px; border-radius: 50px; font-weight: 600; }
+
+        /* ===== Ventana Modal ===== */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(5px); z-index: 2000; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: var(--transition); }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-content { background: var(--card-bg); width: 90%; max-width: 600px; border-radius: 24px; padding: 40px; position: relative; transform: scale(0.8); transition: var(--transition); max-height: 90vh; overflow-y: auto; box-shadow: 0 25px 50px rgba(0,0,0,0.25); }
+        .modal-overlay.active .modal-content { transform: scale(1); }
+        .close-modal { position: absolute; top: 20px; right: 20px; font-size: 1.5rem; color: var(--text-muted); cursor: pointer; background: #f1f5f9; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
+        .close-modal:hover { background: var(--secondary); color: white; transform: rotate(90deg); }
+        .modal-content h3 { font-size: 2rem; margin-bottom: 5px; color: var(--bg-dark); }
+        .modal-rol { color: var(--primary); font-weight: 600; margin-bottom: 20px; display: block; }
+        .modal-content h4 { margin: 20px 0 10px; color: var(--text-main); font-size: 1.1rem; }
+        .modal-content ul { list-style: none; margin-bottom: 20px; }
+        .modal-content li { position: relative; padding-left: 25px; margin-bottom: 10px; color: var(--text-muted); }
+        .modal-content li::before { content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; left: 0; top: 2px; color: #10b981; font-size: 0.9rem; }
+        .modal-tech { background: #f8fafc; padding: 15px; border-radius: 12px; font-size: 0.9rem; margin-bottom: 25px; border-left: 4px solid var(--primary); }
+
+        /* ===== Contacto y Footer ===== */
+        .contact-section { text-align: center; background: var(--bg-dark); color: white; max-width: 100%; padding: 80px 20px; }
+        .contact-section h2 { font-size: 2.5rem; margin-bottom: 20px; }
+        .contact-section p { color: #94a3b8; max-width: 600px; margin: 0 auto 40px; font-size: 1.1rem; }
+        .social-links { display: flex; justify-content: center; gap: 20px; }
+        .social-links a { display: flex; align-items: center; justify-content: center; width: 60px; height: 60px; background: rgba(255,255,255,0.1); border-radius: 50%; font-size: 1.5rem; color: white; transition: var(--transition); }
+        .social-links a:hover { background: var(--primary); transform: translateY(-5px) scale(1.1); }
+        footer { background: #0b1120; color: #64748b; text-align: center; padding: 20px; font-size: 0.9rem; }
+
+        /* ===== Animaciones ===== */
+        .fade-up { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .nav-links { position: fixed; top: 70px; right: -100%; flex-direction: column; background: white; width: 100%; text-align: center; padding: 30px 0; box-shadow: 0 10px 15px rgba(0,0,0,0.05); transition: 0.4s; }
+            .nav-links.active { right: 0; }
+            .menu-btn { display: block; }
+            .hero h1 { font-size: 2.8rem; }
+            .section-title { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navegación -->
+    <header>
+        <nav>
+            <div class="logo">TY.</div>
+            <div class="nav-links" id="navLinks">
+                <a href="#sobre-mi">Sobre mí</a>
+                <a href="#habilidades">Habilidades</a>
+                <a href="#proyectos">Proyectos</a>
+                <a href="#contacto">Contacto</a>
+            </div>
+            <div class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></div>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Hola, soy <span>Tatiana Yucailla</span></h1>
+            <h2><span class="typing-text"></span></h2>
+            <div class="hero-btns">
+                <!-- Botón Ver Proyectos: Abre tu perfil de GitHub -->
+                <a href="https://github.com/sbx1234" target="_blank" rel="noopener" class="btn btn-primary">
+                    Ver Proyectos <i class="fab fa-github"></i>
+                </a>
+                <!-- Botón Contactarme: Abre el correo hacia tu email -->
+                <a href="mailto:yucaillaevelin511@gmail.com?subject=Contacto desde mi Portafolio Web" class="btn btn-outline">
+                    Contactarme <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre mí -->
+    <section id="sobre-mi" class="fade-up">
+        <h2 class="section-title">Sobre <span>mí</span></h2>
+        <div style="max-width: 800px; margin: 0 auto; text-align: center; font-size: 1.1rem; color: var(--text-muted);">
+            <p style="margin-bottom: 20px;">Soy estudiante de Ingeniería de Software en la Universidad Técnica de Ambato (UTA). Me apasiona el desarrollo full-stack y la creación de aplicaciones que resuelvan problemas reales.</p>
+            <p>Disfruto trabajar en equipo, aprender nuevas tecnologías y asumir retos técnicos. Mi objetivo es consolidarme como una profesional capaz de aportar valor en cualquier proyecto de software.</p>
+        </div>
+    </section>
+
+    <!-- Habilidades -->
+    <section id="habilidades" class="fade-up">
+        <h2 class="section-title">Mis <span>Habilidades</span></h2>
+        <div class="skills-grid">
+            <div class="skill-card"><i class="devicon-java-plain colored"></i><span>Java</span></div>
+            <div class="skill-card"><i class="devicon-javascript-plain colored"></i><span>JavaScript</span></div>
+            <div class="skill-card"><i class="devicon-php-plain colored"></i><span>PHP</span></div>
+            <div class="skill-card"><i class="devicon-html5-plain colored"></i><span>HTML5</span></div>
+            <div class="skill-card"><i class="devicon-css3-plain colored"></i><span>CSS3</span></div>
+            <div class="skill-card"><i class="devicon-react-original colored"></i><span>React</span></div>
+            <div class="skill-card"><i class="devicon-mysql-plain colored"></i><span>MySQL</span></div>
+            <div class="skill-card"><i class="devicon-microsoftsqlserver-plain colored"></i><span>SQL Server</span></div>
+            <div class="skill-card"><i class="devicon-oracle-original colored"></i><span>Oracle</span></div>
+            <div class="skill-card"><i class="devicon-git-plain colored"></i><span>Git</span></div>
+            <div class="skill-card"><i class="devicon-github-original" style="color: #333;"></i><span>GitHub</span></div>
+            <div class="skill-card"><i class="devicon-vscode-plain colored"></i><span>VS Code</span></div>
+        </div>
+    </section>
+
+    <!-- Proyectos -->
+    <section id="proyectos" class="fade-up">
+        <h2 class="section-title">Mis <span>Proyectos</span></h2>
+        <div class="projects-grid">
+            <!-- Proyecto 1 -->
+            <div class="project-card">
+                <h3>Tiendi</h3>
+                <p>Sistema web de gestión de inventario y ventas orientado a pequeños negocios.</p>
+                <div class="project-tags">
+                    <span>C#</span><span>ASP.NET Core</span><span>SQL Server</span>
+                </div>
+                <button class="btn btn-primary open-modal" data-target="modal-tiendi" style="width: 100%; justify-content: center;">
+                    Ver Detalles <i class="fas fa-external-link-alt"></i>
+                </button>
+            </div>
+            <!-- Proyecto 2 -->
+            <div class="project-card">
+                <h3>EcuaRutas</h3>
+                <p>Sistema de gestión y venta de pasajes para transporte interprovincial.</p>
+                <div class="project-tags">
+                    <span>C#</span><span>Angular</span><span>SQL</span>
+                </div>
+                <button class="btn btn-primary open-modal" data-target="modal-ecuarutas" style="width: 100%; justify-content: center;">
+                    Ver Detalles <i class="fas fa-external-link-alt"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modales -->
+    <div class="modal-overlay" id="modal-tiendi">
+        <div class="modal-content">
+            <div class="close-modal"><i class="fas fa-times"></i></div>
+            <h3>Tiendi</h3>
+            <span class="modal-rol">Mi rol: Desarrollo del módulo de estadísticas</span>
+            <h4>¿Qué hice en este proyecto?</h4>
+            <ul>
+                <li>Implementación de servicios y consultas para obtener estadísticas del negocio.</li>
+                <li>Consulta del total y cantidad de ventas.</li>
+                <li>Identificación de los productos más vendidos.</li>
+                <li>Agrupación de ventas por fecha.</li>
+                <li>Desarrollo de la interfaz de estadísticas mediante tarjetas, tablas y gráficos.</li>
+                <li>Integración de los datos del backend con el frontend.</li>
+            </ul>
+            <div class="modal-tech"><strong>Tecnologías:</strong> C#, ASP.NET Core Web API, HTML, CSS, JavaScript y SQL Server.</div>
+            <a href="https://github.com/JuanFull1/Tiendi" target="_blank" class="btn btn-primary" style="width: 100%; justify-content: center;"><i class="fab fa-github"></i> Ir al repositorio en GitHub</a>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-ecuarutas">
+        <div class="modal-content">
+            <div class="close-modal"><i class="fas fa-times"></i></div>
+            <h3>EcuaRutas</h3>
+            <span class="modal-rol">Mi rol: Módulos de pagos y gestión de clientes</span>
+            <h4>¿Qué hice en este proyecto?</h4>
+            <ul>
+                <li>Implementación de funcionalidades para depósitos y transferencias.</li>
+                <li>Gestión de carga y validación de comprobantes de pago.</li>
+                <li>Manejo de estados de pago.</li>
+                <li>Desarrollo de funcionalidades para consultar destinos y frecuencias.</li>
+                <li>Implementación del historial de compras y visualización de boletos.</li>
+                <li>Desarrollo de notificaciones relacionadas con compras, pagos y cambios de viaje.</li>
+            </ul>
+            <div class="modal-tech"><strong>Tecnologías:</strong> C#, ASP.NET Core, Angular y base de datos del proyecto.</div>
+            <a href="https://github.com/JuanFull1/EcuaRutas" target="_blank" class="btn btn-primary" style="width: 100%; justify-content: center;"><i class="fab fa-github"></i> Ir al repositorio en GitHub</a>
+        </div>
+    </div>
+
+    <!-- Contacto -->
+    <section id="contacto" class="contact-section fade-up">
+        <h2>¿Hablamos?</h2>
+        <p>Estoy abierta a oportunidades de aprendizaje, proyectos académicos y colaboraciones. Puedes contactarme a través de mis redes.</p>
+        <div class="social-links">
+            <a href="https://github.com/sbx1234" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+            <!-- Tu correo configurado aquí abajo -->
+            <a href="mailto:yucaillaevelin511@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Tatiana Yucailla. Ingeniería de Software - UTA.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Menú Móvil
+        const menuBtn = document.getElementById('menuBtn');
+        const navLinks = document.getElementById('navLinks');
+        menuBtn.addEventListener('click', () => { navLinks.classList.toggle('active'); });
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => { navLinks.classList.remove('active'); });
+        });
+
+        // Animación de texto
+        const textElement = document.querySelector('.typing-text');
+        const phrases = ["Estudiante de Ingeniería de Software", "Desarrolladora Full-Stack en formación", "Apasionada por la tecnología"];
+        let phraseIndex = 0, charIndex = 0, isDeleting = false;
+        function type() {
+            const currentPhrase = phrases[phraseIndex];
+            if (isDeleting) { textElement.textContent = currentPhrase.substring(0, charIndex - 1); charIndex--; }
+            else { textElement.textContent = currentPhrase.substring(0, charIndex + 1); charIndex++; }
+            let typeSpeed = isDeleting ? 40 : 80;
+            if (!isDeleting && charIndex === currentPhrase.length) { typeSpeed = 2000; isDeleting = true; }
+            else if (isDeleting && charIndex === 0) { isDeleting = false; phraseIndex = (phraseIndex + 1) % phrases.length; typeSpeed = 500; }
+            setTimeout(type, typeSpeed);
+        }
+        type();
+
+        // Modales
+        const modalBtns = document.querySelectorAll('.open-modal');
+        const closeBtns = document.querySelectorAll('.close-modal');
+        const overlays = document.querySelectorAll('.modal-overlay');
+        modalBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetId = btn.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        closeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.closest('.modal-overlay').classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+        overlays.forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) { overlay.classList.remove('active'); document.body.style.overflow = 'auto'; }
+            });
+        });
+
+        // Animación Scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); } });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-up').forEach(el => { observer.observe(el); });
+    </script>
+</body>
+</html>
